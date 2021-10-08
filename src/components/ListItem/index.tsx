@@ -14,7 +14,12 @@ export const ListItem = ({ item, onChange }: Props) => {
         checked={item.done}
         onChange={(e) => onChange(item.id, e.target.checked)}
       />
-      <label>{item.name}</label>
+      <label
+        style={{ cursor: "pointer" }}
+        onClick={() => onChange(item.id, !item.done)}
+      >
+        {item.name}
+      </label>
     </C.Container>
   );
 };

@@ -19,9 +19,22 @@ export const AddArea = ({ onEnter }: Props) => {
     }
   };
 
+  const handleAddButton = () => {
+    if (inputText !== "") {
+      onEnter(inputText);
+      setInputText("");
+    }
+  };
+
   return (
     <C.Container>
-      <div className="image">➕</div>
+      <div
+        style={{ cursor: "pointer" }}
+        className="image"
+        onClick={handleAddButton}
+      >
+        ➕
+      </div>
       <input
         type="text"
         placeholder="Adicione uma tarefa"
