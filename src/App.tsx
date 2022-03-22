@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as C from "./App.styles";
 import { Item } from "./types/Item";
 import { ListItem } from "./components/ListItem";
 import { AddArea } from "./components/AddArea";
 
 const App = () => {
-  const [list, setList] = useState<Item[]>([
-    { id: 1, name: "Comprar o pão na padaria", done: false },
-    { id: 2, name: "Comprar bolo na padaria", done: true },
-  ]);
+  const [list, setList] = useState<Item[]>(() => {
+    const storageList = localStorage.getItem("@todoList-TS:list");
+
+    if (storageList) {
+      return JSON.parse(storageList);
+    }
+
+    return [
+      { id: 1, name: "Comprar o pão na padaria", done: false },
+      { id: 2, name: "Comprar bolo na padaria", done: true },
+    ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("@todoList-TS:list", JSON.stringify(list));
+  }, [list]);
 
   const handleAddTask = (taskName: string) => {
     let newList = [...list];
